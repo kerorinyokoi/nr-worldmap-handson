@@ -11,6 +11,6 @@
     "node-red-contrib-web-worldmap": "5.5.4",
     "node-red-contrib-opensky-network": "0.1.0",
     "node-red-node-geofence": "0.3.4",
-    "node-red-contrib-plugin-header": "0.0.2"
+    "node-red-contrib-plugin-header4worldmap": "0.0.2"
   }
 }
