@@ -124,10 +124,10 @@ mqtt inノードの後ろにgeo fenceノード、templateノード、play audio�
 
 # 飛行機の位置情報を地図上に可視化するフロー
 
-- 緯度(南端): 30
-- 経度(西端): 130
-- 緯度(北端): 40
-- 経度(東端): 140
+- 緯度(南端): 32
+- 経度(西端): 135
+- 緯度(北端): 37
+- 経度(東端): 139
 
 ```
 [{"id":"c18bcf7b91cefc8e","type":"opensky-network","z":"1b5975d7b18049b4","method":"allStateVectors","allStateVectors_lamin":"30","allStateVectors_laminType":"num","allStateVectors_lomin":"130","allStateVectors_lominType":"num","allStateVectors_lamax":"40","allStateVectors_lamaxType":"num","allStateVectors_lomax":"140","allStateVectors_lomaxType":"num","name":"","x":160,"y":740,"wires":[["578cb03a408b5d01","e8f2bedf68d0baa8"]]},{"id":"578cb03a408b5d01","type":"worldmap","z":"1b5975d7b18049b4","name":"","lat":"","lon":"","zoom":"","layer":"OSMG","cluster":"","maxage":"","usermenu":"show","layers":"show","panit":"false","panlock":"false","zoomlock":"false","hiderightclick":"false","coords":"none","showgrid":"false","showruler":"false","allowFileDrop":"false","path":"/worldmap","overlist":"DR,CO,RA,DN","maplist":"OSMG,OSMC,EsriC,EsriS,UKOS","mapname":"","mapurl":"","mapopt":"","mapwms":false,"x":380,"y":740,"wires":[]},{"id":"5a6f26d3862a0c52","type":"global-config","env":[],"modules":{"node-red-contrib-opensky-network":"0.1.0","node-red-contrib-web-worldmap":"5.5.4"}}]
