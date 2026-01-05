@@ -45,3 +45,12 @@ Node-REDフローエディタを使用する準備が整うと、ダイアログ
 <img width="900" border="1" src="images/flow-editor_ja.png">
 
 これで、Node-REDフローエディタですごいフローの開発を始めれるようになりました。
+
+# はじめてのフロー
+injectノードとdebugノードをつなぐ
+
+# 加速度センサのデータを可視化
+mqtt-inノードとchartノードをつなぐ
+
+
+
