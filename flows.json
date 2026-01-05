@@ -1,0 +1,723 @@
+[
+    {
+        "id": "1b5975d7b18049b4",
+        "type": "tab",
+        "label": "フロー 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "72d7fe2270b5f66b",
+        "type": "inject",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "hello",
+        "payloadType": "str",
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "83b2097680d53329",
+                "ae5f693881cca3da"
+            ]
+        ]
+    },
+    {
+        "id": "83b2097680d53329",
+        "type": "debug",
+        "z": "1b5975d7b18049b4",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "7abe169ab36a17b0",
+        "type": "template",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "こんにちは",
+        "output": "str",
+        "x": 520,
+        "y": 160,
+        "wires": [
+            [
+                "0d359c8f5757037b"
+            ]
+        ]
+    },
+    {
+        "id": "c18bcf7b91cefc8e",
+        "type": "opensky-network",
+        "z": "1b5975d7b18049b4",
+        "method": "allStateVectors",
+        "allStateVectors_lamin": "30",
+        "allStateVectors_laminType": "num",
+        "allStateVectors_lomin": "130",
+        "allStateVectors_lominType": "num",
+        "allStateVectors_lamax": "40",
+        "allStateVectors_lamaxType": "num",
+        "allStateVectors_lomax": "140",
+        "allStateVectors_lomaxType": "num",
+        "name": "",
+        "x": 160,
+        "y": 740,
+        "wires": [
+            [
+                "578cb03a408b5d01",
+                "e8f2bedf68d0baa8"
+            ]
+        ]
+    },
+    {
+        "id": "578cb03a408b5d01",
+        "type": "worldmap",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "DR,CO,RA,DN",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,UKOS",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 380,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "5b10f523b8853031",
+        "type": "mqtt in",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "topic": "nodered",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2763ca9abd118f91",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 280,
+        "wires": [
+            [
+                "b0ad962c7274e22c"
+            ]
+        ]
+    },
+    {
+        "id": "922cf11b31c43851",
+        "type": "function",
+        "z": "1b5975d7b18049b4",
+        "name": "function 1",
+        "func": "// 基準点（江南市役所）の座標\nvar baseLat = 35.33208;\nvar baseLon = 136.87067;\n\n// 入力緯度経度\nvar lat1 = parseFloat(msg.payload.lat);\nvar lon1 = parseFloat(msg.payload.lon);\n\n// Haversine 式による距離計算（地球半径 = 6371km）\nvar toRad = function(deg) {\n    return deg * Math.PI / 180;\n};\n\nvar dLat = toRad(baseLat - lat1);\nvar dLon = toRad(baseLon - lon1);\n\nvar a = Math.sin(dLat/2) * Math.sin(dLat/2) +\n        Math.cos(toRad(lat1)) * Math.cos(toRad(baseLat)) *\n        Math.sin(dLon/2) * Math.sin(dLon/2);\n\nvar c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));\nvar distanceKm = 6371 * c;\n\n// 四捨五入して整数にする\nvar distRounded = Math.round(distanceKm);\n\n// 出力 msg.payload\nmsg.payload = distRounded + \"kmです\";\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 900,
+        "wires": [
+            [
+                "e242e896c8a9947d"
+            ]
+        ]
+    },
+    {
+        "id": "2a274d1d46e2aa41",
+        "type": "worldmap",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "",
+        "layer": "OSMG",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "DR,CO,RA,DN",
+        "maplist": "OSMG,OSMC,EsriC,EsriS,UKOS",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 340,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "1e7e59f0387d05e2",
+        "type": "geofence",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "mode": "circle",
+        "inside": "true",
+        "rad": 2681.1849674706204,
+        "points": [],
+        "centre": {
+            "latitude": 34.86145232139244,
+            "longitude": 136.81051522493362
+        },
+        "floor": "",
+        "ceiling": "",
+        "worldmap": false,
+        "outputs": 1,
+        "x": 340,
+        "y": 540,
+        "wires": [
+            [
+                "0a7654568a74a6c6"
+            ]
+        ]
+    },
+    {
+        "id": "0d359c8f5757037b",
+        "type": "play audio",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "voice": "190",
+        "x": 730,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ae5f693881cca3da",
+        "type": "switch",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "hello",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 330,
+        "y": 160,
+        "wires": [
+            [
+                "7abe169ab36a17b0"
+            ]
+        ]
+    },
+    {
+        "id": "037928665c2fd0ae",
+        "type": "ui-chart",
+        "z": "1b5975d7b18049b4",
+        "group": "72f5ef6cebd783c0",
+        "name": "",
+        "label": "chart",
+        "order": 1,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "linear",
+        "x": 570,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b0ad962c7274e22c",
+        "type": "change",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.acceleration.z",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 280,
+        "wires": [
+            [
+                "037928665c2fd0ae",
+                "1fd3746353b29820"
+            ]
+        ]
+    },
+    {
+        "id": "7b16d32c3a9fe2cc",
+        "type": "template",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "異常値です",
+        "output": "str",
+        "x": 520,
+        "y": 360,
+        "wires": [
+            [
+                "262515923e512e88"
+            ]
+        ]
+    },
+    {
+        "id": "262515923e512e88",
+        "type": "play audio",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "voice": "190",
+        "x": 730,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "1fd3746353b29820",
+        "type": "switch",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "10",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 330,
+        "y": 360,
+        "wires": [
+            [
+                "7b16d32c3a9fe2cc"
+            ]
+        ]
+    },
+    {
+        "id": "a0608c665dfc2a9b",
+        "type": "mqtt in",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "topic": "nodered",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "2763ca9abd118f91",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 460,
+        "wires": [
+            [
+                "2a274d1d46e2aa41",
+                "1e7e59f0387d05e2"
+            ]
+        ]
+    },
+    {
+        "id": "0a7654568a74a6c6",
+        "type": "template",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "空港に到着しました",
+        "output": "str",
+        "x": 540,
+        "y": 540,
+        "wires": [
+            [
+                "ae872a5a1e0094d7"
+            ]
+        ]
+    },
+    {
+        "id": "ae872a5a1e0094d7",
+        "type": "play audio",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "voice": "190",
+        "x": 750,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "b365fa8f6e5a9533",
+        "type": "inject",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 640,
+        "wires": [
+            [
+                "cd773b4c174a7f83"
+            ]
+        ]
+    },
+    {
+        "id": "cd773b4c174a7f83",
+        "type": "template",
+        "z": "1b5975d7b18049b4",
+        "name": "セントレアの位置情報",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n    \"name\": 1767597374755,\n    \"lat\": 34.858333,\n    \"lon\": 136.805278\n}",
+        "output": "json",
+        "x": 420,
+        "y": 640,
+        "wires": [
+            [
+                "5d72663e8f26c4cc"
+            ]
+        ]
+    },
+    {
+        "id": "5d72663e8f26c4cc",
+        "type": "mqtt out",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "topic": "nodered",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2763ca9abd118f91",
+        "x": 660,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "e8f2bedf68d0baa8",
+        "type": "geofence",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "mode": "circle",
+        "inside": "true",
+        "rad": 25701.722600610876,
+        "points": [],
+        "centre": {
+            "latitude": 35.3220585123033,
+            "longitude": 136.77568674087524
+        },
+        "floor": "",
+        "ceiling": "",
+        "worldmap": false,
+        "outputs": 1,
+        "x": 380,
+        "y": 820,
+        "wires": [
+            [
+                "922cf11b31c43851",
+                "99bc2f9b5dfb5d5a"
+            ]
+        ]
+    },
+    {
+        "id": "99bc2f9b5dfb5d5a",
+        "type": "template",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "飛行機がもうすぐ来るよ",
+        "output": "str",
+        "x": 580,
+        "y": 820,
+        "wires": [
+            [
+                "baf2f603d95e7246"
+            ]
+        ]
+    },
+    {
+        "id": "baf2f603d95e7246",
+        "type": "play audio",
+        "z": "1b5975d7b18049b4",
+        "d": true,
+        "name": "",
+        "voice": "190",
+        "x": 790,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "e242e896c8a9947d",
+        "type": "play audio",
+        "z": "1b5975d7b18049b4",
+        "name": "",
+        "voice": "190",
+        "x": 790,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "2763ca9abd118f91",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mqtt://public:public@public.cloud.shiftr.io",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "72f5ef6cebd783c0",
+        "type": "ui-group",
+        "name": "Group 1",
+        "page": "3bff4b21dc58d216",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": true,
+        "disabled": false,
+        "groupType": "default"
+    },
+    {
+        "id": "3bff4b21dc58d216",
+        "type": "ui-page",
+        "name": "Page 1",
+        "ui": "3516d5993ef2e8fe",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "c22cc61de3b17959",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": 0,
+                "cols": 3
+            },
+            {
+                "name": "Tablet",
+                "px": 576,
+                "cols": 6
+            },
+            {
+                "name": "Small Desktop",
+                "px": 768,
+                "cols": 9
+            },
+            {
+                "name": "Desktop",
+                "px": 1024,
+                "cols": 12
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "3516d5993ef2e8fe",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "c22cc61de3b17959",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094CE",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "ee638a8267523f86",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-opensky-network": "0.1.0",
+            "node-red-contrib-web-worldmap": "5.5.4",
+            "node-red-node-geofence": "0.3.4",
+            "node-red-contrib-play-audio": "2.5.0",
+            "@flowfuse/node-red-dashboard": "1.30.1"
+        }
+    }
+]
