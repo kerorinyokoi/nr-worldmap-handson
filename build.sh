@@ -3,8 +3,8 @@ sudo apt install build-essential
 
 mkdir recamera && cd recamera
 
-wget https://github.com/Seeed-Studio/reCamera-OS/releases/download/0.2.1/sg2002_reCamera_0.2.1_emmc_sdk.tar.gz
-tar -xzvf sg2002_reCamera_0.2.1_emmc_sdk.tar.gz
+wget -q https://github.com/Seeed-Studio/reCamera-OS/releases/download/0.2.1/sg2002_reCamera_0.2.1_emmc_sdk.tar.gz
+tar -xzvf sg2002_reCamera_0.2.1_emmc_sdk.tar.gz > /dev/null
 
 #Note: This tool is over 10GB in size. Please be aware of your disk space.
 git clone https://github.com/sophgo/host-tools.git --depth=1
