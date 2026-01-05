@@ -8,7 +8,7 @@ tar -xzvf sg2002_reCamera_0.2.1_emmc_sdk.tar.gz > /dev/null
 
 #Note: This tool is over 10GB in size. Please be aware of your disk space.
 git clone -q https://github.com/sophgo/host-tools.git --depth=1
-git clone -1 https://github.com/Seeed-Studio/sscma-example-sg200x.git
+git clone -q https://github.com/Seeed-Studio/sscma-example-sg200x.git
 
 export SG200X_SDK_PATH=$PWD/sg2002_recamera_emmc
 export PATH=$PWD/host-tools/gcc/riscv64-linux-musl-x86_64/bin:$PATH
