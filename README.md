@@ -47,7 +47,24 @@ Node-REDフローエディタを使用する準備が整うと、ダイアログ
 これで、Node-REDフローエディタですごいフローの開発を始めれるようになりました。
 
 # はじめてのフロー
+ワイヤーを流れるメッセージに文字を設定して、メッセージの内容を確認するフローを作成します。
 injectノードとdebugノードをつなぐ
+
+injectノードをダブルクリックして、1列目のプルダウンから「文字列」を選択する。
+その後、右側に「hello」を入力する。
+
+デプロイボタンを押して、injectノードの左側のボタンをクリックすると、右側のデバッグタブに「hello」という数値が表示される。
+```
+[{"id":"72d7fe2270b5f66b","type":"inject","z":"1b5975d7b18049b4","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"hello","payloadType":"str","x":150,"y":80,"wires":[["83b2097680d53329","ae5f693881cca3da"]]},{"id":"83b2097680d53329","type":"debug","z":"1b5975d7b18049b4","name":"debug 1","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":300,"y":80,"wires":[]}]
+```
+
+# ワイヤーを流れるメッセージの確認方法
+右側の「フローデバッガ」をクリックして、「無効」スイッチをクリックして「有効」に切り替える。
+
+# 指定した値を超えた時に音声を再生
+
+
+
 
 # 加速度センサのデータを可視化
 mqtt-inノードとchartノードをつなぐ
