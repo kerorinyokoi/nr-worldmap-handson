@@ -46,6 +46,8 @@ Node-REDフローエディタを使用する準備が整うと、ダイアログ
 
 これで、Node-REDフローエディタですごいフローの開発を始めれるようになりました。
 
+# 画面説明
+
 # はじめてのフロー
 ワイヤーを流れるメッセージに文字を設定して、メッセージの内容を確認するフローを作成します。
 injectノードとdebugノードをつなぐ
@@ -55,15 +57,25 @@ injectノードをダブルクリックして、1列目のプルダウンから�
 
 デプロイボタンを押して、injectノードの左側のボタンをクリックすると、右側のデバッグタブに「hello」という数値が表示される。
 ```
-[{"id":"72d7fe2270b5f66b","type":"inject","z":"1b5975d7b18049b4","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"hello","payloadType":"str","x":150,"y":80,"wires":[["83b2097680d53329","ae5f693881cca3da"]]},{"id":"83b2097680d53329","type":"debug","z":"1b5975d7b18049b4","name":"debug 1","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":300,"y":80,"wires":[]}]
+[{"id":"72d7fe2270b5f66b","type":"inject","z":"1b5975d7b18049b4","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"hello","payloadType":"str","x":150,"y":80,"wires":[["83b2097680d53329","ae5f693881cca3da"]]},{"id":"83b2097680d53329","type":"debug","z":"1b5975d7b18049b4","name":"debug 1","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":340,"y":80,"wires":[]}]
 ```
 
 # ワイヤーを流れるメッセージの確認方法
 右側の「フローデバッガ」をクリックして、「無効」スイッチをクリックして「有効」に切り替える。
+右側に
 
 # 指定した値を超えた時に音声を再生
+injectノードの出力端子からswitchノード、橙色のtemplateノード、play audioノードを順に置き、ワイヤーで接続する。
 
+switchノードのプロパティでは、「要素に含む」を選択して「hello」を入力する。これによってメッセージに「hello」が含まれる場合にのみ次のノードにメッセージが渡される。
 
+temlateノードには読み上げたい文章として「こんにちは」と記載する。
+
+play audioノードをつなぐ。play audioノードのプロパティでは「TTSボイス」として「Google 日本語 (ja-JP)」を選択する。
+
+```
+[{"id":"72d7fe2270b5f66b","type":"inject","z":"1b5975d7b18049b4","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"hello","payloadType":"str","x":150,"y":80,"wires":[["83b2097680d53329","ae5f693881cca3da"]]},{"id":"83b2097680d53329","type":"debug","z":"1b5975d7b18049b4","name":"debug 1","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":340,"y":80,"wires":[]},{"id":"7abe169ab36a17b0","type":"template","z":"1b5975d7b18049b4","name":"","field":"payload","fieldType":"msg","format":"handlebars","syntax":"mustache","template":"こんにちは","output":"str","x":520,"y":160,"wires":[["0d359c8f5757037b"]]},{"id":"0d359c8f5757037b","type":"play audio","z":"1b5975d7b18049b4","name":"","voice":"190","x":730,"y":160,"wires":[]},{"id":"ae5f693881cca3da","type":"switch","z":"1b5975d7b18049b4","name":"","property":"payload","propertyType":"msg","rules":[{"t":"cont","v":"hello","vt":"str"}],"checkall":"true","repair":false,"outputs":1,"x":330,"y":160,"wires":[["7abe169ab36a17b0"]]},{"id":"715717cff87ae497","type":"global-config","env":[],"modules":{"node-red-contrib-play-audio":"2.5.0"}}]
+```
 
 
 # 加速度センサのデータを可視化
