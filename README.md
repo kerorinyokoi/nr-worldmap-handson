@@ -119,9 +119,36 @@ mqtt inノードの後ろにgeo fenceノード、templateノード、play audio�
 # 空港の位置情報を送信するフロー
 
 ```
-[{"id":"b365fa8f6e5a9533","type":"inject","z":"1b5975d7b18049b4","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"","payloadType":"date","x":160,"y":640,"wires":[["cd773b4c174a7f83"]]},{"id":"cd773b4c174a7f83","type":"template","z":"1b5975d7b18049b4","name":"セントレアの位置情報","field":"payload","fieldType":"msg","format":"json","syntax":"mustache","template":"{\n    \"name\": 1767597374755,\n    \"lat\": 34.858333,\n    \"lon\": 136.805278\n}","output":"json","x":420,"y":640,"wires":[["5d72663e8f26c4cc"]]},{"id":"5d72663e8f26c4cc","type":"mqtt out","z":"1b5975d7b18049b4","name":"","topic":"nodered","qos":"","retain":"","respTopic":"","contentType":"","userProps":"","correl":"","expiry":"","broker":"2763ca9abd118f91","x":640,"y":640,"wires":[]},{"id":"2763ca9abd118f91","type":"mqtt-broker","name":"","broker":"mqtt://public:public@public.cloud.shiftr.io","port":1883,"clientid":"","autoConnect":true,"usetls":false,"protocolVersion":4,"keepalive":60,"cleansession":true,"autoUnsubscribe":true,"birthTopic":"","birthQos":"0","birthRetain":"false","birthPayload":"","birthMsg":{},"closeTopic":"","closeQos":"0","closeRetain":"false","closePayload":"","closeMsg":{},"willTopic":"","willQos":"0","willRetain":"false","willPayload":"","willMsg":{},"userProps":"","sessionExpiry":""}]
+[{"id":"b365fa8f6e5a9533","type":"inject","z":"1b5975d7b18049b4","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"","payloadType":"date","x":160,"y":640,"wires":[["cd773b4c174a7f83"]]},{"id":"cd773b4c174a7f83","type":"template","z":"1b5975d7b18049b4","name":"セントレアの位置情報","field":"payload","fieldType":"msg","format":"json","syntax":"mustache","template":"{\n    \"name\": 1767597374755,\n    \"lat\": 34.858333,\n    \"lon\": 136.805278\n}","output":"json","x":420,"y":640,"wires":[["5d72663e8f26c4cc"]]},{"id":"5d72663e8f26c4cc","type":"mqtt out","z":"1b5975d7b18049b4","name":"","topic":"nodered","qos":"","retain":"","respTopic":"","contentType":"","userProps":"","correl":"","expiry":"","broker":"2763ca9abd118f91","x":660,"y":640,"wires":[]},{"id":"2763ca9abd118f91","type":"mqtt-broker","name":"","broker":"mqtt://public:public@public.cloud.shiftr.io","port":1883,"clientid":"","autoConnect":true,"usetls":false,"protocolVersion":4,"keepalive":60,"cleansession":true,"autoUnsubscribe":true,"birthTopic":"","birthQos":"0","birthRetain":"false","birthPayload":"","birthMsg":{},"closeTopic":"","closeQos":"0","closeRetain":"false","closePayload":"","closeMsg":{},"willTopic":"","willQos":"0","willRetain":"false","willPayload":"","willMsg":{},"userProps":"","sessionExpiry":""}]
+```
+
+# 飛行機の位置情報を地図上に可視化するフロー
+
+- 緯度(南端): 30
+- 経度(西端): 130
+- 緯度(北端): 40
+- 経度(東端): 140
+
+```
+[{"id":"c18bcf7b91cefc8e","type":"opensky-network","z":"1b5975d7b18049b4","method":"allStateVectors","allStateVectors_lamin":"30","allStateVectors_laminType":"num","allStateVectors_lomin":"130","allStateVectors_lominType":"num","allStateVectors_lamax":"40","allStateVectors_lamaxType":"num","allStateVectors_lomax":"140","allStateVectors_lomaxType":"num","name":"","x":160,"y":740,"wires":[["578cb03a408b5d01","e8f2bedf68d0baa8"]]},{"id":"578cb03a408b5d01","type":"worldmap","z":"1b5975d7b18049b4","name":"","lat":"","lon":"","zoom":"","layer":"OSMG","cluster":"","maxage":"","usermenu":"show","layers":"show","panit":"false","panlock":"false","zoomlock":"false","hiderightclick":"false","coords":"none","showgrid":"false","showruler":"false","allowFileDrop":"false","path":"/worldmap","overlist":"DR,CO,RA,DN","maplist":"OSMG,OSMC,EsriC,EsriS,UKOS","mapname":"","mapurl":"","mapopt":"","mapwms":false,"x":380,"y":740,"wires":[]},{"id":"5a6f26d3862a0c52","type":"global-config","env":[],"modules":{"node-red-contrib-opensky-network":"0.1.0","node-red-contrib-web-worldmap":"5.5.4"}}]
+```
+
+# 飛行機が近づいてきたら通知するフロー
+
+
+
+```
+[{"id":"c18bcf7b91cefc8e","type":"opensky-network","z":"1b5975d7b18049b4","method":"allStateVectors","allStateVectors_lamin":"30","allStateVectors_laminType":"num","allStateVectors_lomin":"130","allStateVectors_lominType":"num","allStateVectors_lamax":"40","allStateVectors_lamaxType":"num","allStateVectors_lomax":"140","allStateVectors_lomaxType":"num","name":"","x":160,"y":740,"wires":[["578cb03a408b5d01","e8f2bedf68d0baa8"]]},{"id":"578cb03a408b5d01","type":"worldmap","z":"1b5975d7b18049b4","name":"","lat":"","lon":"","zoom":"","layer":"OSMG","cluster":"","maxage":"","usermenu":"show","layers":"show","panit":"false","panlock":"false","zoomlock":"false","hiderightclick":"false","coords":"none","showgrid":"false","showruler":"false","allowFileDrop":"false","path":"/worldmap","overlist":"DR,CO,RA,DN","maplist":"OSMG,OSMC,EsriC,EsriS,UKOS","mapname":"","mapurl":"","mapopt":"","mapwms":false,"x":380,"y":740,"wires":[]},{"id":"e8f2bedf68d0baa8","type":"geofence","z":"1b5975d7b18049b4","name":"","mode":"circle","inside":"true","rad":25701.722600610876,"points":[],"centre":{"latitude":35.3220585123033,"longitude":136.77568674087524},"floor":"","ceiling":"","worldmap":false,"outputs":1,"x":380,"y":820,"wires":[["99bc2f9b5dfb5d5a"]]},{"id":"99bc2f9b5dfb5d5a","type":"template","z":"1b5975d7b18049b4","name":"","field":"payload","fieldType":"msg","format":"handlebars","syntax":"mustache","template":"飛行機がもうすぐ来るよ","output":"str","x":580,"y":820,"wires":[["baf2f603d95e7246"]]},{"id":"baf2f603d95e7246","type":"play audio","z":"1b5975d7b18049b4","name":"","voice":"190","x":790,"y":820,"wires":[]},{"id":"6edcea7eeeef7e78","type":"global-config","env":[],"modules":{"node-red-contrib-opensky-network":"0.1.0","node-red-contrib-web-worldmap":"5.5.4","node-red-node-geofence":"0.3.4","node-red-contrib-play-audio":"2.5.0"}}]
 ```
 
 
 
+https://chatgpt.com/
 
+```
+Node-REDのfunctionノードに書くソースコードを作成してください。入力として緯度msg.latと経度msg.lonが与えられます。この緯度と経度を使い、江南市役所を基準点とした距離を算出してください。ルールは次のとおりです。
+- 距離の計算にはHaversine式を用いる
+- 距離は小数は使わず、四捨五入して整数にする
+- 結果はmsg.payloadに「○kmです」（例：15kmです）という形で入れる
+- 変数の名前は半角英文字にする
+```
