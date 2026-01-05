@@ -1,5 +1,5 @@
-sudo apt update
-sudo apt install build-essential
+sudo apt update > /dev/null
+sudo apt install build-essential > /dev/null
 
 mkdir recamera && cd recamera
 
