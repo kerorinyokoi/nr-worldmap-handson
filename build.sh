@@ -15,5 +15,3 @@ tar zxvf git-2.52.0.tar.gz > /dev/null
 cd git-2.52.0
 make CC=riscv64-unknown-linux-musl-gcc AR=riscv64-unknown-linux-musl-ar CFLAGS="-I$SDK_INC" LDFLAGS="-L$SDK_LIB" PREFIX=/usr/local/git NO_TCLTK=YesPlease NO_GETTEXT=YesPlease NO_CURL=YesPlease NO_EXPAT=YesPlease NO_OPENSSL=YesPlease NO_ICONV=YesPlease NO_REGEX=NeedsStartEnd BLK_SHA1=YesPlease -j$(nproc)
 file git
-ls
-pwd
