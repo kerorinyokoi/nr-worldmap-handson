@@ -17,3 +17,5 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: /home/runner/work/nr-worldmap-handson/nr-worldmap-handson/recamera/git-2.52.0/git
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
