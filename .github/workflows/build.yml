@@ -16,4 +16,4 @@ jobs:
       - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: git
+          files: ./recamera/git-2.52.0/git
