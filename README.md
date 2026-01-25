@@ -193,7 +193,25 @@ changeノードの出力端子からswitchノード、templateノード、play a
 
 <img width="900" border="1" src="images/abnormal_voice_flow.png">
 
+switchノードは条件分岐を行うノードです。switchノードのダブルクリックするとプロパティが表示されます。プロパティでは「10より大きい」の条件を追加します。
 
+- 「==」をクリックして「>」を選択
+
+  <img width="900" border="1" src="images/switch_gt10.png">
+
+- 「AZ」をクリックして「09」を選択
+
+  <img width="900" border="1" src="images/switch_property_msg.png">
+
+- 右側の入力欄に「10」を入力
+
+  <img width="900" border="1" src="images/switch_value_10.png">
+
+templateノードは、定型文のメッセージを記入するノードです。templateノードのプロパティには読み上げたい文章として「異常な値です」と記載します。
+
+<img width="900" border="1" src="images/template_abnormal.png">
+
+デプロイボタンを押してから、MQTTブローカーに加速度センサのZ軸の値が10を超えるメッセージを送信すると、「異常な値です」という音声が再生されます。
 
 # 地図上に現在地を表示するフロー
 mqtt inノードとworldmapノードをつなぐ。
