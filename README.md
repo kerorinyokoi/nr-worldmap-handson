@@ -202,7 +202,7 @@ worldmapノードをmqtt-inノードの後ろに置き、ワイヤーでつな�
 
 <img width="900" border="1" src="images/map_flow.png">
 
-デブロイボタンを押してフローを有効にします。デプロイボタンの左側にある「Open world map」ボタンをクリックして、地図を表示します。
+デプロイボタンを押してフローを有効にします。デプロイボタンの左側にある「Open world map」ボタンをクリックして、地図を表示します。
 
 <img width="900" border="1" src="images/world_map.png">
 
