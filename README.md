@@ -138,12 +138,12 @@ changeノードは、ワークスペースに配置すると名前が「set msg.
 mqtt-inノードはMQTTブローカーからメッセージを受信するノードです。
 まずmqtt-inノードのプロパティを開き、以下のようにトピックを設定します。
 
-- トピック
-```
-nodered
-```
+- トピック:
+  ```
+  nodered
+  ```
 
-<img width="900" border="1" src="images/mqtt_in_properties.png">
+  <img width="900" border="1" src="images/mqtt_in_properties.png">
 
 「サーバ」の鉛筆アイコンの隣にあるプラスボタン(マウスカーソルを上に載せると「新規にmqtt-broker 設定ノードを追加」と表示される)をクリックして、新しいMQTTブローカーを追加します。
 
@@ -151,12 +151,12 @@ nodered
 
 サーバの欄に以下のMQTTブローカーのURLを入力します。
 
-- サーバ
+- サーバ:
   ```
   mqtt://public:public@public.cloud.shiftr.io
   ```
 
-<img width="900" border="1" src="images/mqtt_broker_properties.png">
+  <img width="900" border="1" src="images/mqtt_broker_properties.png">
 
 右上の「追加」ボタンをクリックして、mqtt-inノードのプロパティに戻ります。最後に「完了」ボタンをクリックします。
 
@@ -168,7 +168,7 @@ changeノードは、メッセージの内容を変更するノードです。ch
   payload.acceleration.z
   ```
 
-<img width="900" border="1" src="images/change_node_properties.png">
+  <img width="900" border="1" src="images/change_node_properties.png">
 
 完了ボタンをクリックしてプロパティを閉じます。これで、MQTTブローカーから受信したメッセージの中から加速度センサのZ軸の値だけをmsg.payloadに代入するようになります。
 
@@ -199,7 +199,7 @@ switchノードは条件分岐を行うノードです。switchノードのダ�
 
   <img width="900" border="1" src="images/switch_gt10.png">
 
-- 「AZ」をクリックして「09」を選択
+- 文字列「az」をクリックして数値「09」を選択
 
   <img width="900" border="1" src="images/switch_property_msg.png">
 
@@ -251,14 +251,42 @@ templateノードは、定型文のメッセージを記入するノードです
 今回は、講師が用意したフローで中部国際空港の位置情報を手動で送信します。上手くゆけばスマホが中部国際空港の位置情報に到着したことになり、「空港に到着しました」という音声が再生されます。
 
 # 飛行機の位置情報を地図上に可視化するフロー
+次には、飛行機の位置情報を地図上に可視化するフローを作成します。
+
+<img width="900" border="1" src="images/gemini7.png">
+
+これまで作成したフローの下に新しいフローを作成します。まずopensky-networkノードとworldmapノードをワークスペースにドラッグアンドドロップして、ワイヤーで接続します。
+
+<img width="900" border="1" src="images/airplane_map_flow.png">
+
+opensky-networkノードは、OpenSky Networkが提供する飛行機の位置情報を取得するノードです。opensky-networkノードのプロパティを開き、以下のように設定します。
 
 - 緯度(南端):
   ```
   32
   ```
-- 経度(西端): 136
-- 緯度(北端): 37
-- 経度(東端): 140
+- 経度(西端):
+  ```
+  136
+  ```
+- 緯度(北端):
+  ```
+  37
+  ```
+- 経度(東端):
+  ```
+  140
+  ```
+
+<img width="900" border="1" src="images/opensky_properties.png">
+
+この緯度経度の範囲設定によって、東海地方の飛行機の位置情報を取得できるようになります。
+
+デプロイボタンを押してフローを有効にします。デプロイボタンの左側にある「Open world map」ボタンをクリックして、地図を表示します。
+
+<img width="900" border="1" src="images/airplane_world_map.png">
+
+すると現在の飛行機の位置情報がリアルタイムに地図上に表示されます。
 
 # 飛行機が近づいてきたら通知するフロー
 
