@@ -23,20 +23,24 @@ https://github.com/signup
 https://github.com/settings/codespaces#default-idle-timeout-header
 
 テキスト入力エリアに最大値の240分を入力します。
+
 <kbd><img width="640" src="images/default-idle-timeout.png"></kbd>
 
 ## 3. GitHub Codespacesに移動する
 このページにアクセスすると、右上隅に「Use this template」という緑色のボタンがあります。このボタンをクリックすると、メニューから2つのオプションを選択できます。
 ここで「Open in a codespace」を選択して、Codespacesでテンプレートリポジトリを開きます。
+
 <img width="350" border="1" src="images/open-codespaces.png">
 
 ## 4. Node-REDフローエディタを開く
 約1分後、この環境は自動的にNode-REDをダウンロードして起動します。
 Node-REDフローエディタを使用する準備が整うと、ダイアログが右下隅にポップアップ表示されます。
+
 <img width="500" src="images/open-in-browser_ja.png">
 
 緑色のボタン「ブラウザーで開く」をクリックすると、ブラウザの別のタブが開き、Node-REDフローエディタが表示されます。
 まず、この環境でプロジェクト機能のダイアログを開きます。
+
 <img width="900" border="1" src="images/flow-editor_ja.png">
 
 これで、Node-REDフローエディタでフローの開発を始めれるようになりました。
@@ -53,55 +57,69 @@ Node-REDフローエディタの画面は、主に以下の3つの部分で構�
 # はじめてのフロー
 ワイヤーを流れるメッセージに文字を設定して、メッセージの内容を確認するフローを作成します。
 ノードパレットからinjectノードとdebugノードをワークスペースにドラッグアンドドロップします。その後、ワイヤーで接続します。
+
 <img width="900" border="1" src="images/firstflow.png">
 
 次にinjectノードをダブルクリックして、1列目のプルダウンから「文字列」を選択します。
+
 <img width="900" border="1" src="images/inject_string.png">
 
 その後、右側に「hello」を入力して、「完了」ボタンをクリックします。
+
 <img width="900" border="1" src="images/inject_hello.png">
 
 デプロイボタンを押して、injectノードの左側のボタンをクリックすると、右側のデバッグタブに「hello」という文字が表示されます。
+
 <img width="900" border="1" src="images/debug_hello.png">
 
 これで、はじめてのフローの作り方が分かりました。
 
 # ワイヤーを流れるメッセージの確認方法
 ここでは、ワイヤーを流れるメッセージの内容を確認する方法を説明します。Node-REDにはフローデバッガという機能があり、ワイヤーを流れるメッセージの内容を詳細に確認できます。
+
 <img width="900" border="1" src="images/gemini1.png">
 
 右端にあるアイコン一覧から「フローデバッガ」をクリックします。
 すると「無効」スイッチをクリックして「有効」に切り替えます。
 
 <img width="900" border="1" src="images/enable_debugger.png">
+
 injectノードの右側の端子にマウスカーソルを合わせると、青い四角が表示されます。この四角をクリックすると、ブレイクポイントが設定されます。ブレイクポイントとは、ワイヤーを流れるメッセージがその位置で一時停止するポイントです。
+
 <img width="900" border="1" src="images/breakpoint.png">
 
 injectノードの左側のボタンをクリックすると、ワイヤーを流れるメッセージがブレイクポイントで一時停止します。右端のデバッガタブにメッセージの内容が表示されます。
+
 <img width="900" border="1" src="images/debugger_breakpoint.png">
 
 フローの実行を再開するには、ワークスペース上部の上に表示される「フローを再開」ボタンをクリックします。すると、メッセージが次のノードに渡され、デバッグタブにメッセージの内容が表示されます。
+
 <img width="900" border="1" src="images/debugger_continue.png">
 
 これで、ワイヤーを流れるメッセージの内容を確認する方法がわかりました。フローを流れるメッセージを確認しない時は、デバッガタブの「有効」スイッチをクリックして「無効」に切り替えます。
 
 # 条件に合致した時に音声を再生
 ここでは、ワイヤーを流れるメッセージの内容に条件分岐を加えて、条件に合致した時に音声を再生するフローを作成します。
+
 <img width="900" border="1" src="images/gemini2.png">
 
 injectノードの出力端子からswitchノード、橙色のtemplateノード、play audioノードを順に置き、ワイヤーで接続します。
+
 <img width="900" border="1" src="images/voice_flow.png">
 
 switchノードは条件分岐を行うノードです。switchノードのダブルクリックするとプロパティが表示されます。プロパティでは「要素に含む」を選択して「hello」を入力します。
+
 <img width="900" border="1" src="images/switch_properties.png">
 <img width="900" border="1" src="images/switch_hello.png">
 
 これによってメッセージに「hello」が含まれる場合にのみ次のノードにメッセージが渡されるようになります。
 
 temlateノードは、定型文のメッセージを記入するノードです。templateノードのプロパティには読み上げたい文章として「こんにちは」と記載します。
+
 <img width="900" border="1" src="images/template_hello.png">
 
 play audioノードは音声を再生するノードです。デプロイボタンを押してからinjectノードの左側のボタンをクリックすると、「こんにちは」という音声が再生されます。
+
 <img width="900" border="1" src="images/play_audio.png">
 
 もし再生されない場合は、play audioノードのプロパティでは「TTSボイス」として「Google 日本語 (ja-JP)」を選択してみてください。
