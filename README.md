@@ -39,7 +39,6 @@ Node-REDフローエディタを使用する準備が整うと、ダイアログ
 <img width="500" src="images/open-in-browser_ja.png">
 
 緑色のボタン「ブラウザーで開く」をクリックすると、ブラウザの別のタブが開き、Node-REDフローエディタが表示されます。
-まず、この環境でプロジェクト機能のダイアログを開きます。
 
 <img width="900" border="1" src="images/flow-editor_ja.png">
 
@@ -54,37 +53,41 @@ Node-REDフローエディタの画面は、主に以下の3つの部分で構�
 3. サイドバー（右側）
     - ここには、ノードのプロパティやデバッグ情報が表示されます。ノードを選択すると、そのノードの設定を変更できます。また、デバッグタブでは、フローの実行中に生成されたメッセージを確認できます。
 
-# はじめてのフロー
-ワイヤーを流れるメッセージに文字を設定して、メッセージの内容を確認するフローを作成します。
-ノードパレットからinjectノードとdebugノードをワークスペースにドラッグアンドドロップします。その後、ワイヤーで接続します。
+# 音声を再生するフロー
+初めてのフローとして、音声を再生するフローを作成します。
+
+<img width="900" border="1" src="images/gemini0.png">
+
+ノードパレットからinjectノードと、templateノードとplay audioノードをワークスペースにドラッグアンドドロップします。その後、それぞれのノードの出力端子から入力端子へワイヤーで接続します。
 
 <img width="900" border="1" src="images/firstflow.png">
 
-次にinjectノードをダブルクリックして、1列目のプルダウンから「文字列」を選択します。
+injectノードは、フローを開始するノードで、ワークスペースに上に置くと名前が「タイムスタンプ」に変わります。templateノードは、定型文のメッセージを記入するノードです。play audioノードは音声を再生するノードです。
 
-<img width="900" border="1" src="images/inject_string.png">
+まず、templateノードをダブルクリックして、プロパティ設定画面を開きます。プロパティ設定画面ではノード固有の設定を行えます。templateノードのプロパティでは、テキストエディタの部分に「こんにちは」を入力して、「完了」ボタンをクリックします。
 
-その後、右側に「hello」を入力して、「完了」ボタンをクリックします。
+<img width="900" border="1" src="images/template_hello.png">
 
-<img width="900" border="1" src="images/inject_hello.png">
+右上のデプロイボタンを押してフローを有効にします。フローを変更した場合は、デプロイボタンが赤色になるため、再度押して変更を反映する必要があります。
 
-デプロイボタンを押して、injectノードの左側のボタンをクリックすると、右側のデバッグタブに「hello」という文字が表示されます。
+<img width="900" border="1" src="images/deploy_button.png">
 
-<img width="900" border="1" src="images/debug_hello.png">
+injectノードの左側のボタンをクリックすると、「こんにちは」という音声が再生されます。
 
-これで、はじめてのフローの作り方が分かりました。
+<img width="900" border="1" src="images/play_audio.png">
+
+もし再生されない場合は、play audioノードのプロパティでは「TTSボイス」として「Google 日本語 (ja-JP)」を選択してみてください。
 
 # ワイヤーを流れるメッセージの確認方法
 ここでは、ワイヤーを流れるメッセージの内容を確認する方法を説明します。Node-REDにはフローデバッガという機能があり、ワイヤーを流れるメッセージの内容を詳細に確認できます。
 
 <img width="900" border="1" src="images/gemini1.png">
 
-右端にあるアイコン一覧から「フローデバッガ」をクリックします。
-すると「無効」スイッチをクリックして「有効」に切り替えます。
+右端にあるアイコン一覧から「フローデバッガ」をクリックします。その後「無効」スイッチをクリックして「有効」に切り替えます。
 
 <img width="900" border="1" src="images/enable_debugger.png">
 
-injectノードの右側の端子にマウスカーソルを合わせると、青い四角が表示されます。この四角をクリックすると、ブレイクポイントが設定されます。ブレイクポイントとは、ワイヤーを流れるメッセージがその位置で一時停止するポイントです。
+templateノードの右側の端子にマウスカーソルを合わせると、青い四角が表示されます。この四角をクリックすると、ブレイクポイントが設定できます。ブレイクポイントとは、ワイヤーを流れるメッセージがその位置で一時停止するポイントです。
 
 <img width="900" border="1" src="images/breakpoint.png">
 
@@ -92,7 +95,7 @@ injectノードの左側のボタンをクリックすると、ワイヤーを�
 
 <img width="900" border="1" src="images/debugger_breakpoint.png">
 
-フローの実行を再開するには、ワークスペース上部の上に表示される「フローを再開」ボタンをクリックします。すると、メッセージが次のノードに渡され、デバッグタブにメッセージの内容が表示されます。
+フローの実行を再開するには、ワークスペース上部の上に表示される「フローを再開」ボタンをクリックします。すると、メッセージが次のノードに渡され、音声が再生されます。
 
 <img width="900" border="1" src="images/debugger_continue.png">
 
@@ -118,11 +121,7 @@ temlateノードは、定型文のメッセージを記入するノードです�
 
 <img width="900" border="1" src="images/template_hello.png">
 
-play audioノードは音声を再生するノードです。デプロイボタンを押してからinjectノードの左側のボタンをクリックすると、「こんにちは」という音声が再生されます。
 
-<img width="900" border="1" src="images/play_audio.png">
-
-もし再生されない場合は、play audioノードのプロパティでは「TTSボイス」として「Google 日本語 (ja-JP)」を選択してみてください。
 
 # 加速度センサのデータを可視化
 ここでは、MQTTプロトコルで送信される加速度センサのデータを可視化するフローを作成します。MQTTはIoTデバイスでよく使われる軽量な通信プロトコルです。加速度センサのデータは、MQTTブローカーであるshiftr.ioのパブリックブローカーから取得します。
@@ -334,6 +333,10 @@ Node-REDのfunctionノードに書くソースコードを作成してくださ�
 
 なかなか近くに飛行機が来ない場合は、geo fenceノードの範囲を広げてみてください。
 
+# まとめ
+このハンズオンでは、Node-REDを使用して、センサデータや位置情報を可視化する方法を学びました。以下の内容を習得しました。Node-REDは、簡単に作りたいものを実現できる強力なツールです。ぜひ、今後も活用してみてください。
+
+<!--
 # フローデータ
 ## はじめてのフロー
 ```
@@ -384,3 +387,4 @@ Node-REDのfunctionノードに書くソースコードを作成してくださ�
 ```
 [{"id":"c18bcf7b91cefc8e","type":"opensky-network","z":"1b5975d7b18049b4","method":"allStateVectors","allStateVectors_lamin":"32","allStateVectors_laminType":"num","allStateVectors_lomin":"136","allStateVectors_lominType":"num","allStateVectors_lamax":"37","allStateVectors_lamaxType":"num","allStateVectors_lomax":"140","allStateVectors_lomaxType":"num","name":"","x":160,"y":740,"wires":[["578cb03a408b5d01","e8f2bedf68d0baa8"]]},{"id":"578cb03a408b5d01","type":"worldmap","z":"1b5975d7b18049b4","name":"","lat":"","lon":"","zoom":"","layer":"OSMG","cluster":"","maxage":"","usermenu":"show","layers":"show","panit":"false","panlock":"false","zoomlock":"false","hiderightclick":"false","coords":"none","showgrid":"false","showruler":"false","allowFileDrop":"false","path":"/worldmap","overlist":"DR,CO,RA,DN","maplist":"OSMG,OSMC,EsriC,EsriS,UKOS","mapname":"","mapurl":"","mapopt":"","mapwms":false,"x":380,"y":740,"wires":[]},{"id":"922cf11b31c43851","type":"function","z":"1b5975d7b18049b4","name":"function 1","func":"// 基準点（江南市役所）の座標\nvar baseLat = 35.33208;\nvar baseLon = 136.87067;\n\n// 入力緯度経度\nvar lat1 = parseFloat(msg.payload.lat);\nvar lon1 = parseFloat(msg.payload.lon);\n\n// Haversine 式による距離計算（地球半径 = 6371km）\nvar toRad = function(deg) {\n    return deg * Math.PI / 180;\n};\n\nvar dLat = toRad(baseLat - lat1);\nvar dLon = toRad(baseLon - lon1);\n\nvar a = Math.sin(dLat/2) * Math.sin(dLat/2) +\n        Math.cos(toRad(lat1)) * Math.cos(toRad(baseLat)) *\n        Math.sin(dLon/2) * Math.sin(dLon/2);\n\nvar c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));\nvar distanceKm = 6371 * c;\n\n// 四捨五入して整数にする\nvar distRounded = Math.round(distanceKm);\n\n// 出力 msg.payload\nmsg.payload = distRounded + \"kmです\";\n\nreturn msg;\n","outputs":1,"timeout":0,"noerr":0,"initialize":"","finalize":"","libs":[],"x":580,"y":900,"wires":[["e242e896c8a9947d"]]},{"id":"e8f2bedf68d0baa8","type":"geofence","z":"1b5975d7b18049b4","name":"","mode":"circle","inside":"true","rad":25701.722600610876,"points":[],"centre":{"latitude":35.3220585123033,"longitude":136.77568674087524},"floor":"","ceiling":"","worldmap":false,"outputs":1,"x":380,"y":820,"wires":[["922cf11b31c43851","99bc2f9b5dfb5d5a"]]},{"id":"99bc2f9b5dfb5d5a","type":"template","z":"1b5975d7b18049b4","name":"","field":"payload","fieldType":"msg","format":"handlebars","syntax":"mustache","template":"飛行機がもうすぐ来るよ","output":"str","x":580,"y":820,"wires":[["baf2f603d95e7246"]]},{"id":"baf2f603d95e7246","type":"play audio","z":"1b5975d7b18049b4","d":true,"name":"","voice":"190","x":790,"y":820,"wires":[]},{"id":"e242e896c8a9947d","type":"play audio","z":"1b5975d7b18049b4","name":"","voice":"190","x":790,"y":900,"wires":[]},{"id":"182865a9d2746af9","type":"global-config","env":[],"modules":{"node-red-contrib-opensky-network":"0.1.0","node-red-contrib-web-worldmap":"5.5.4","node-red-node-geofence":"0.3.4","node-red-contrib-play-audio":"2.5.0"}}]
 ```
+-->
