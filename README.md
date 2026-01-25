@@ -289,18 +289,50 @@ opensky-networkノードは、OpenSky Networkが提供する飛行機の位置�
 すると現在の飛行機の位置情報がリアルタイムに地図上に表示されます。
 
 # 飛行機が近づいてきたら通知するフロー
+次に飛行機が近づいてきたら通知するフローを作成します。ここでは、江南市役所を基準点として、飛行機が近づいてきたら方角と距離を音声で通知するフローを作成します。
+
+<img width="900" border="1" src="images/gemini8.png">
+
+まず、geo fenceノード、functionノード、play audioノードをワークスペースにドラッグアンドドロップして、ワイヤーで接続します。
+
+<img width="900" border="1" src="images/airplane_notification_flow.png">
+
+geo fenceノードのプロパティを開き、円のアイコンをクリックして江南市役所から県営名古屋空港の手前まで辺りを以下のように囲みます。
+
+<img width="900" border="1" src="images/geo_fence_konan.png">
+
+県営名古屋空港を含めない理由は、着陸中の飛行機に対して通知を行わないためです。
+
+functionノードは、独自のJavaScriptコードを実行するノードです。コーディングは難しいため、生成AIにソースコードを作成してもらいます。まず以下のURLをクリックしてChatGPTのページを開きます。
 
 https://chatgpt.com/
 
+次に以下のプロンプトをコピーして、ChatGPTの入力欄に貼り付けて実行します。
+
 ```
-Node-REDのfunctionノードに書くソースコードを作成してください。入力として緯度msg.payload.latと経度msg.payload.lonが与えられます。この緯度と経度を使い、江南市役所を基準点とした距離を算出してください。ルールは次のとおりです。
+Node-REDのfunctionノードに書くソースコードを作成してください。入力として緯度msg.payload.latと経度msg.payload.lonが与えられます。この緯度と経度を使い、江南市役所を基準点とした方角と距離を算出してください。ルールは次のとおりです。
+- 方角は北、北東、東、南東、南、南西、西、北西の8方向で表現する
 - 距離の計算にはHaversine式を用いる
 - 距離は小数は使わず、四捨五入して整数にする
-- 出力msg.payloadには「○kmです」（例：15kmです）という形式で距離を入れる
+- 出力msg.payloadには「方角は○、距離は○kmです」（例：方角は北東、距離は15kmです）と入れる
 - 変数の名前は半角英文字にする
 ```
 
-[https://chatgpt.com/share/695b700a-2148-8009-bef4-416a6304d238](https://chatgpt.com/share/695b750f-3608-8009-8713-6d73c3e92e7b)
+<img width="900" border="1" src="images/chatgpt_prompt.png">
+
+上手くゆけば以下のようなソースコードが生成されます。コードの右上に表示される「このコードをコピーする」ボタンをクリックして、コードをコピーします。
+
+<img width="900" border="1" src="images/chatgpt_code.png">
+
+上手くゆかない場合は、[本ページ](https://chatgpt.com/share/6975b166-f50c-8001-8dc6-b98f1ea8a12a)にアクセスして、ソースコードをコピーしてください。
+
+次に、Node-REDフローエディタに戻り、functionノードのプロパティを開きます。コード入力欄に先ほどコピーしたソースコードを貼り付けて、「完了」ボタンをクリックします。
+
+<img width="900" border="1" src="images/function_node_code.png">
+
+デプロイボタンを押してフローを有効にします。飛行機が江南市役所の近くに来ると、「方角は○、距離は○kmです」という音声が再生されます。
+
+なかなか近くに飛行機が来ない場合は、geo fenceノードの範囲を広げてみてください。
 
 # フローデータ
 ## はじめてのフロー
