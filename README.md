@@ -214,16 +214,45 @@ templateノードは、定型文のメッセージを記入するノードです
 デプロイボタンを押してから、MQTTブローカーに加速度センサのZ軸の値が10を超えるメッセージを送信すると、「異常な値です」という音声が再生されます。
 
 # 地図上に現在地を表示するフロー
-mqtt inノードとworldmapノードをつなぐ。
+ここでは、MQTTプロトコルで送信されるスマホのGPS情報を地図上に表示するフローを作成します。
+
+<img width="900" border="1" src="images/gemini5.png">
+
+前のフローからmqtt inノードのみ選択してControl+Cを押してコピーして、既存のフローの下にControl+Vを押して貼り付けます(本説明のスクリーンショットには前のフローは入っていません)。
+worldmapノードをmqtt-inノードの後ろに置き、ワイヤーでつなきます。
+
+<img width="900" border="1" src="images/map_flow.png">
+
+デブロイボタンを押してフローを有効にします。デプロイボタンの左側にある「Open world map」ボタンをクリックして、地図を表示します。
+
+<img width="900" border="1" src="images/world_map.png">
+
+左上のマイナスボタンで地図を縮小して地図を日本に移動させると、スマホのGPS情報が地図上に表示されます。
 
 # 空港に到着したら音声で通知するフロー
-mqtt inノードの後ろにgeo fenceノード、templateノード、play audioノードを接続する。
+ここでは、スマホのGPS情報が空港の位置情報に到着したら音声で通知するフローを作成します。
 
-# 空港の位置情報を送信するフロー
+<img width="900" border="1" src="images/gemini6.png">
+
+mqtt inノードの後ろにgeo fenceノード、templateノード、play audioノードを接続します。
+
+<img width="900" border="1" src="images/airport_voice_flow.png">
+
+geo fenceノードは、指定した範囲に入ったかどうかを判定するノードです。geo fenceノードのプロパティを開き、円のアイコンをクリックして中部国際空港を以下のように囲みます。
+
+<img width="900" border="1" src="images/geo_fence_airport.png">
+
+templateノードは、定型文のメッセージを記入するノードです。templateノードのプロパティには読み上げたい文章として「空港に到着しました」と記載します。
+
+<img width="900" border="1" src="images/template_airport.png">
+
+デプロイボタンを押してフローを有効にします。
+
+今回は、講師が用意したフローで中部国際空港の位置情報を手動で送信します。上手くゆけばスマホが中部国際空港の位置情報に到着したことになり、「空港に到着しました」という音声が再生されます。
 
 # 飛行機の位置情報を地図上に可視化するフロー
 
-- 緯度(南端): 32
+- 緯度(南端):32
 - 経度(西端): 136
 - 緯度(北端): 37
 - 経度(東端): 140
