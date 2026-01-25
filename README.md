@@ -126,20 +126,74 @@ play audioノードは音声を再生するノードです。デプロイボタ�
 
 # 加速度センサのデータを可視化
 ここでは、MQTTプロトコルで送信される加速度センサのデータを可視化するフローを作成します。MQTTはIoTデバイスでよく使われる軽量な通信プロトコルです。加速度センサのデータは、MQTTブローカーであるshiftr.ioのパブリックブローカーから取得します。
+
 <img width="900" border="1" src="images/gemini3.png">
 
-パレットのmqtt-inノード(右側に端子があるノード)とchartノードをつなぎます。mqtt-inノードのプロパティを開き、「サーバ」の鉛筆アイコンをクリックして新しいMQTTブローカーを追加します。
+パレットのmqtt-inノード(右側に端子があるノード)、changeノード、chartノードを順につなぎます。
 
-- サーバ
-```
-mqtt://public:public@public.cloud.shiftr.io
-```
+<img width="900" border="1" src="images/mqtt_chart_flow.png">
+
+changeノードは、ワークスペースに配置すると名前が「set msg.payload」に変わります。
+
+mqtt-inノードはMQTTブローカーからメッセージを受信するノードです。
+まずmqtt-inノードのプロパティを開き、以下のようにトピックを設定します。
+
 - トピック
 ```
 nodered
 ```
 
+<img width="900" border="1" src="images/mqtt_in_properties.png">
+
+「サーバ」の鉛筆アイコンの隣にあるプラスボタン(マウスカーソルを上に載せると「新規にmqtt-broker 設定ノードを追加」と表示される)をクリックして、新しいMQTTブローカーを追加します。
+
+<img width="900" border="1" src="images/mqtt_broker_add.png">
+
+サーバの欄に以下のMQTTブローカーのURLを入力します。
+
+- サーバ
+  ```
+  mqtt://public:public@public.cloud.shiftr.io
+  ```
+
+<img width="900" border="1" src="images/mqtt_broker_properties.png">
+
+右上の「追加」ボタンをクリックして、mqtt-inノードのプロパティに戻ります。最後に「完了」ボタンをクリックします。
+
+changeノードは、メッセージの内容を変更するノードです。changeノードのプロパティを開き、以下のように設定します。
+
+- 代入する値の「az」をクリックして「msg.」を選択
+- 右側の入力欄に以下を入力
+  ```
+  payload.acceleration.z
+  ```
+
+<img width="900" border="1" src="images/change_node_properties.png">
+
+完了ボタンをクリックしてプロパティを閉じます。これで、MQTTブローカーから受信したメッセージの中から加速度センサのZ軸の値だけをmsg.payloadに代入するようになります。
+
+chartノードは、メッセージの内容をグラフで可視化するノードです。chartノードはプロパティを変更する必要はありません。
+
+デプロイボタンを押してフローを有効にします。右側のダッシュボードタブを開き、「ダッシュボードを開く」ボタンをクリックします。
+
+<img width="900" border="1" src="images/open_dashboard.png">
+
+新しいタブが開き、加速度センサのZ軸の値がグラフで表示されます。
+
+<img width="900" border="1" src="images/acceleration_chart.png">
+
+これで、加速度センサのデータを可視化するフローが完成しました。
+
 # 異常値の時に音声で通知するフロー
+加速度センサのZ軸の値が10を超えた場合に音声で通知するフローを作成します。
+
+<img width="900" border="1" src="images/gemini4.png">
+
+changeノードの出力端子からswitchノード、templateノード、play audioノードを順に置き、ワイヤーで接続します。
+
+<img width="900" border="1" src="images/abnormal_voice_flow.png">
+
+
 
 # 地図上に現在地を表示するフロー
 mqtt inノードとworldmapノードをつなぐ。
