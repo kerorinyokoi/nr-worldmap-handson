@@ -121,13 +121,15 @@ injectノードの左側のボタンをクリックすると、ワイヤーを�
 
 <img width="900" border="1" src="images/gemini3.png">
 
+## 1. フローの作成
 パレットのmqtt-inノード(右側に端子があるノード)、changeノード、chartノードを順につなぎます。
 
 <img width="900" border="1" src="images/mqtt_chart_flow.png">
 
 changeノードは、ワークスペースに配置すると名前が「set msg.payload」に変わります。
 
-mqtt-inノードはMQTTブローカーからメッセージを受信するノードです。
+## 2. mqtt-inノードのプロパティ設定
+mqtt-inノードはMQTTブローカーからセンサーデータのメッセージを受信するノードです。
 まずmqtt-inノードのプロパティを開き、以下のようにトピックを設定します。
 
 - トピック:
@@ -152,6 +154,7 @@ mqtt-inノードはMQTTブローカーからメッセージを受信するノー
 
 右上の「追加」ボタンをクリックして、mqtt-inノードのプロパティに戻ります。最後に「完了」ボタンをクリックします。
 
+## 3. changeノードのプロパティ設定
 changeノードは、メッセージの中から必要なデータだけを取り出すノードです。changeノードのプロパティを開き、以下のように設定します。
 
 - 代入する値の「az」をクリックして「msg.」を選択
@@ -164,6 +167,9 @@ changeノードは、メッセージの中から必要なデータだけを取�
 
 payload.acceleration.zは、MQTTブローカーから受信したメッセージの中から加速度センサのZ軸の値を取り出すためのパスです。payloadという箱の中にaccelerationという箱があり、その中にzという値が入っているイメージです。
 
+<img width="900" border="1" src="images/variable.png">
+
+## 4. フローの実行とダッシュボード画面の動作確認
 完了ボタンをクリックしてプロパティを閉じます。これで、MQTTブローカーから受信したメッセージの中から加速度センサのZ軸の値だけをmsg.payloadに代入するようになります。
 
 chartノードは、メッセージの内容をグラフで可視化するノードです。chartノードはプロパティを変更する必要はありません。
@@ -176,17 +182,20 @@ chartノードは、メッセージの内容をグラフで可視化するノー
 
 <img width="900" border="1" src="images/acceleration_chart.png">
 
-これで、加速度センサのデータを可視化するフローが完成しました。もしご自身のスマートフォンで試したい場合は、スマートフォンから[このIoT PhoneアプリのURL](https://kazuhitoyokoi.github.io/iot-phone/)にアクセスして、トピック名として一意の名前(nodered451など)を入力して、センサーデータを送信してみてください。
+これで、加速度センサのデータを可視化するフローが完成しました。
+もしご自身のスマートフォンで試したい場合は、スマートフォンから[このIoT PhoneアプリのURL](https://kazuhitoyokoi.github.io/iot-phone/)にアクセスして、トピック名として一意の名前(nodered451など)を入力して、センサーデータを送信してみてください。
 
 # 異常値の時に音声で通知するフロー
 加速度センサのZ軸の値が10を超えた場合に音声で通知するフローを作成します。
 
 <img width="900" border="1" src="images/gemini4.png">
 
+## 1. フローの作成
 changeノードの出力端子からswitchノード、templateノード、play audioノードを順に置き、ワイヤーで接続します。
 
 <img width="900" border="1" src="images/abnormal_voice_flow.png">
 
+## 2. switchノードに条件を設定
 switchノードは条件分岐を行うノードです。switchノードをダブルクリックするとプロパティが表示されます。プロパティでは「10より大きい」の条件を追加します。
 
 - 「==」をクリックして「>」を選択
@@ -203,10 +212,12 @@ switchノードは条件分岐を行うノードです。switchノードをダ�
 
 これによってメッセージに値が異常の場合にのみ次のノードにメッセージが渡されるようになります。
 
+## 3. templateノードに読み上げる文章を設定
 templateノードは、定型文のメッセージを記入するノードです。templateノードのプロパティには読み上げたい文章として「異常な値です」と記載します。
 
 <img width="900" border="1" src="images/template_abnormal.png">
 
+## 4. デプロイボタンを押してフローを実行
 デプロイボタンを押してから、MQTTブローカーに加速度センサのZ軸の値が10を超えるメッセージを送信すると、「異常な値です」という音声が再生されます。
 
 # 地図上に現在地を表示するフロー
@@ -214,11 +225,13 @@ templateノードは、定型文のメッセージを記入するノードです
 
 <img width="900" border="1" src="images/gemini5.png">
 
+## 1. フローを作成
 前のフローからmqtt inノードのみを選択してControl+Cを押してコピーして、既存のフローの下にControl+Vを押して貼り付けます(本説明のスクリーンショットには前のフローは入っていません)。
 worldmapノードをmqtt-inノードの後ろに置き、ワイヤーでつなぎます。
 
 <img width="900" border="1" src="images/map_flow.png">
 
+## 2. フローをデプロイして、地図を表示
 デプロイボタンを押してフローを有効にします。デプロイボタンの左側にある「Open world map」ボタンをクリックして、地図を表示します。
 
 <img width="900" border="1" src="images/world_map.png">
@@ -230,20 +243,23 @@ worldmapノードをmqtt-inノードの後ろに置き、ワイヤーでつな�
 
 <img width="900" border="1" src="images/gemini6.png">
 
+## 1. フローを作成
 mqtt inノードの後ろにgeo fenceノード、templateノード、play audioノードを接続します。
 
 <img width="900" border="1" src="images/airport_voice_flow.png">
 
+## 2. geo fenceノードに対象とする場所を指定
 geo fenceノードは、指定した範囲に入ったかどうかを判定するノードです。geo fenceノードのプロパティを開き、円のアイコンをクリックして中部国際空港を以下のように囲みます。
 
 <img width="900" border="1" src="images/geo_fence_airport.png">
 
+## 3. templateノードに読み上げ文を入力
 templateノードは、定型文のメッセージを記入するノードです。templateノードのプロパティには読み上げたい文章として「空港に到着しました」と記載します。
 
 <img width="900" border="1" src="images/template_airport.png">
 
+## 4. フローのデプロイと動作確認
 デプロイボタンを押してフローを有効にします。
-
 今回は、講師が用意したフローで中部国際空港の位置情報を手動で送信します。上手くゆけばスマホが中部国際空港の位置情報に到着したことになり、「空港に到着しました」という音声が再生されます。
 
 # 飛行機の位置情報を地図上に可視化するフロー
@@ -251,10 +267,12 @@ templateノードは、定型文のメッセージを記入するノードです
 
 <img width="900" border="1" src="images/gemini7.png">
 
+## 1. フローを作成
 これまで作成したフローの下に新しいフローを作成します。まずopensky-networkノードとworldmapノードをワークスペースにドラッグアンドドロップして、ワイヤーで接続します。
 
 <img width="900" border="1" src="images/airplane_map_flow.png">
 
+## 2. 取得する飛行機の緯度経度の範囲を指定
 opensky-networkノードは、OpenSky Networkが提供する飛行機の位置情報を取得するノードです。opensky-networkノードのプロパティを開き、以下のように設定します。
 
 - 緯度(南端):
@@ -278,6 +296,7 @@ opensky-networkノードは、OpenSky Networkが提供する飛行機の位置�
 
 この緯度経度の範囲設定によって、東海地方の飛行機の位置情報を取得できるようになります。
 
+## 2. フローのデプロイと地図表示
 デプロイボタンを押してフローを有効にします。デプロイボタンの左側にある「Open world map」ボタンをクリックして、地図を表示します。
 
 <img width="900" border="1" src="images/airplane_world_map.png">
@@ -289,16 +308,19 @@ opensky-networkノードは、OpenSky Networkが提供する飛行機の位置�
 
 <img width="900" border="1" src="images/gemini8.png">
 
+## 1. フローを作成
 まず、geo fenceノード、functionノード、play audioノードをワークスペースにドラッグアンドドロップして、ワイヤーで接続します。
 
 <img width="900" border="1" src="images/airplane_notification_flow.png">
 
+## 2. 対象とする位置の範囲を指定
 geo fenceノードのプロパティを開き、円のアイコンをクリックして江南市役所から県営名古屋空港の手前あたりを以下のように囲みます。
 
 <img width="900" border="1" src="images/geo_fence_konan.png">
 
 県営名古屋空港を含めない理由は、着陸中の飛行機に対して通知を行わないためです。
 
+## 3. ChatGPTを用いて飛行機がある方角と距離を算出するコードを作成
 functionノードは、独自のJavaScriptコードを実行するノードです。プログラムのコードを自分で書くのは大変です。そこでやりたいことを言葉(プロンプト)でChatGPTに伝えてコードを作成してもらいましょう。まず以下のURLをクリックしてChatGPTのページを開きます。
 
 https://chatgpt.com/
@@ -326,6 +348,7 @@ Node-REDのfunctionノードに書くソースコードを作成してくださ�
 
 <img width="900" border="1" src="images/function_node_code.png">
 
+## 4. フローをデプロイして動作確認
 デプロイボタンを押してフローを有効にします。飛行機が江南市役所の近くに来ると、「方角は○、距離は○kmです」という音声が再生されます。
 
 なかなか近くに飛行機が来ない場合は、geo fenceノードの範囲を広げてみてください。
