@@ -202,7 +202,7 @@ switchノードは条件分岐を行うノードです。switchノードをダ�
 
   <img width="900" border="1" src="images/switch_gt10.png">
 
-- 「文字列 az」をクリックして「数値 09」を選択
+- 「文字列 az」をクリックしてプルダウンメニューを開き、その中から「数値 09」を選択
 
   <img width="900" border="1" src="images/switch_property_msg.png">
 
