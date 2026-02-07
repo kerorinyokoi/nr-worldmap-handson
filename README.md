@@ -29,7 +29,7 @@ https://github.com/settings/codespaces#default-idle-timeout-header
 
 <kbd><img width="640" src="images/default-idle-timeout.png"></kbd>
 
-## 3. GitHub Codespacesに移動する<!-- 「左上のメニューからCodespacesに移動します」の方がわかりやすい -->
+## 3. GitHub Codespacesに移動する
 このページにアクセスすると、右上隅に「Use this template」という緑色のボタンがあります。このボタンをクリックすると、メニューから2つのオプションを選択できます。
 ここで「Open in a codespace」を選択して、Codespacesでテンプレートリポジトリを開きます。
 
@@ -85,7 +85,7 @@ injectノードは、フローを開始するノードで、ワークスペー�
 
 ## 3. 音声の再生
 injectノードの左側のボタンをクリックすると、「こんにちは」という音声が再生されます。
-
+<!-- 「inject」→「タイムスタンプ」の方が分かりやすい -->
 <img width="900" border="1" src="images/play_audio.png">
 
 もし再生されない場合は、play audioノードのプロパティでは「TTSボイス」として「Google 日本語 (ja-JP)」を選択してみてください。また、PCのボリュームが小さくないかも確認してみてください。
@@ -156,8 +156,8 @@ mqtt-inノードはMQTTブローカーからセンサーデータのメッセー
 
 ## 3. changeノードのプロパティ設定
 changeノードは、メッセージの中から必要なデータだけを取り出すノードです。changeノードのプロパティを開き、以下のように設定します。
-
-- 代入する値の「az」をクリックして「msg.」を選択
+<!-- 「change」→「set msg.payload」の方が分かりやすい -->
+- 代入する値の「az」をクリックして「msg.」を選択<!-- 元々「msg.」になってた -->
 - 右側の入力欄に以下を入力
   ```
   payload.acceleration.z
@@ -191,7 +191,7 @@ chartノードは、メッセージの内容をグラフで可視化するノー
 <img width="900" border="1" src="images/gemini4.png">
 
 ## 1. フローの作成
-changeノードの出力端子からswitchノード、templateノード、play audioノードを順に置き、ワイヤーで接続します。
+changeノードの出力端子からswitchノード、templateノード、play audioノードを順に置き、<!-- 画像のように-->ワイヤーで接続します。
 
 <img width="900" border="1" src="images/abnormal_voice_flow.png">
 
@@ -203,14 +203,14 @@ switchノードは条件分岐を行うノードです。switchノードをダ�
   <img width="900" border="1" src="images/switch_gt10.png">
 
 - 文字列「az」をクリックして数値「09」を選択
-
+<!-- 「数値「09」」→「「数値09」」の方がいい -->
   <img width="900" border="1" src="images/switch_property_msg.png">
 
-- 右側の入力欄に「10」を入力
+- 右側の入力欄に「10」と入力
 
   <img width="900" border="1" src="images/switch_value_10.png">
 
-これによってメッセージに値が異常の場合にのみ次のノードにメッセージが渡されるようになります。
+これでメッセージに値が異常の場合にのみ次のノードにメッセージが渡されるようになります。
 
 ## 3. templateノードに読み上げる文章を設定
 templateノードは、定型文のメッセージを記入するノードです。templateノードのプロパティには読み上げたい文章として「異常な値です」と記載します。
@@ -227,6 +227,7 @@ templateノードは、定型文のメッセージを記入するノードです
 
 ## 1. フローを作成
 前のフローからmqtt inノードのみを選択してControl+Cを押してコピーして、既存のフローの下にControl+Vを押して貼り付けます(本説明のスクリーンショットには前のフローは入っていません)。
+<!-- 「mqtt in」→「nodered」の方がいい -->
 worldmapノードをmqtt-inノードの後ろに置き、ワイヤーでつなぎます。
 
 <img width="900" border="1" src="images/map_flow.png">
@@ -297,7 +298,7 @@ opensky-networkノードは、OpenSky Networkが提供する飛行機の位置�
 この緯度経度の範囲設定によって、東海地方の飛行機の位置情報を取得できるようになります。
 
 ## 2. フローのデプロイと地図表示
-デプロイボタンを押してフローを有効にします。デプロイボタンの左側にある「Open world map」ボタンをクリックして、地図を表示します。
+デプロイボタンを押してフローを有効にします。デプロイボタンの左側にある「Open world map」ボタンをクリックして、地図を表示してみましょう。
 
 <img width="900" border="1" src="images/airplane_world_map.png">
 
@@ -338,11 +339,11 @@ Node-REDのfunctionノードに書くソースコードを作成してくださ�
 
 <img width="900" border="1" src="images/chatgpt_prompt.png">
 
-上手くゆけば以下のようなソースコードが生成されます。コードの右上に表示される「このコードをコピーする」ボタンをクリックして、コードをコピーします。
+上手くいけば以下のようなソースコードが生成されます。コードの右上に表示される「このコードをコピーする」ボタンをクリックして、コードをコピーします。
 
 <img width="900" border="1" src="images/chatgpt_code.png">
 
-上手くゆかない場合は、[本ページ](https://chatgpt.com/share/6975b166-f50c-8001-8dc6-b98f1ea8a12a)にアクセスして、ソースコードをコピーしてください。
+上手くいかない場合は、[本ページ](https://chatgpt.com/share/6975b166-f50c-8001-8dc6-b98f1ea8a12a)にアクセスして、ソースコードをコピーしてください。
 
 次に、Node-REDフローエディタに戻り、functionノードのプロパティを開きます。コード入力欄に先ほどコピーしたソースコードを貼り付けて、「完了」ボタンをクリックします。
 
@@ -355,6 +356,7 @@ Node-REDのfunctionノードに書くソースコードを作成してくださ�
 
 # まとめ
 このハンズオンでは、Node-REDを使用して、センサデータや位置情報を可視化する方法を学びました。以下の内容を習得しました。Node-REDは、簡単に作りたいものを実現できる強力なツールです。ぜひ、今後も活用してみてください。
+<!-- 「以下の内容を習得しました。」はいらない -->
 
 <img width="900" border="1" src="images/gemini_summary.png">
 
