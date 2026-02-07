@@ -296,7 +296,7 @@ opensky-networkノードは、OpenSky Networkが提供する飛行機の位置�
 
 この緯度経度の範囲設定によって、東海地方の飛行機の位置情報を取得できるようになります。
 
-## 2. フローのデプロイと地図表示
+## 3. フローのデプロイと地図表示
 デプロイボタンを押してフローを有効にします。デプロイボタンの左側にある「Open world map」ボタンをクリックして、地図を表示してみましょう。
 
 <img width="900" border="1" src="images/airplane_world_map.png">
@@ -309,7 +309,7 @@ opensky-networkノードは、OpenSky Networkが提供する飛行機の位置�
 <img width="900" border="1" src="images/gemini8.png">
 
 ## 1. フローを作成
-まず、geo fenceノード、functionノード、play audioノードをワークスペースにドラッグアンドドロップして、ワイヤーで接続します。
+まず、opensky-networkノードからgeo fenceノード、functionノード、play audioノードをワークスペースにドラッグアンドドロップして、ワイヤーで接続します。
 
 <img width="900" border="1" src="images/airplane_notification_flow.png">
 
