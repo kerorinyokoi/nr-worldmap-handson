@@ -191,7 +191,7 @@ chartノードは、メッセージの内容をグラフで可視化するノー
 <img width="900" border="1" src="images/gemini4.png">
 
 ## 1. フローの作成
-changeノードの出力端子からswitchノード、templateノード、play audioノードを順に置き、<!-- 画像のように-->ワイヤーで接続します。
+changeノードの出力端子からswitchノード、templateノード、play audioノードを順に置き、画像のようにワイヤーで接続します。
 
 <img width="900" border="1" src="images/abnormal_voice_flow.png">
 
@@ -202,8 +202,8 @@ switchノードは条件分岐を行うノードです。switchノードをダ�
 
   <img width="900" border="1" src="images/switch_gt10.png">
 
-- 文字列「az」をクリックして数値「09」を選択
-<!-- 「数値「09」」→「「数値09」」の方がいい -->
+- 「文字列 az」をクリックして「数値 09」を選択
+
   <img width="900" border="1" src="images/switch_property_msg.png">
 
 - 右側の入力欄に「10」と入力
@@ -226,8 +226,7 @@ templateノードは、定型文のメッセージを記入するノードです
 <img width="900" border="1" src="images/gemini5.png">
 
 ## 1. フローを作成
-前のフローからmqtt inノードのみを選択してControl+Cを押してコピーして、既存のフローの下にControl+Vを押して貼り付けます(本説明のスクリーンショットには前のフローは入っていません)。
-<!-- 「mqtt in」→「nodered」の方がいい -->
+前のフローから「nodered」という名前が付いているmqtt inノードのみを選択してControl+Cを押してコピーして、既存のフローの下にControl+Vを押して貼り付けます(本説明のスクリーンショットには前のフローは入っていません)。
 worldmapノードをmqtt-inノードの後ろに置き、ワイヤーでつなぎます。
 
 <img width="900" border="1" src="images/map_flow.png">
