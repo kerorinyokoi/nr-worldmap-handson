@@ -178,7 +178,7 @@ chartノードは、メッセージの内容をグラフで可視化するノー
 
 <img width="900" border="1" src="images/open_dashboard.png">
 
-新しいタブが開き、加速度センサのZ軸の値がグラフで表示されます。<!-- 新しいタブは表示されるけど、グラフは表示されない -->
+新しいタブが開き、加速度センサのZ軸の値がグラフで表示されます。
 
 <img width="900" border="1" src="images/acceleration_chart.png">
 
